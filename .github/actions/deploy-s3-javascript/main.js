@@ -3,7 +3,14 @@ const github = require('@actions/github');
 const exec = require('@actions/exec');
 
 function run() {
-  core.notice('custom javascrit action');
+  const bucket = core.getInput('bucket', { required: true });
+  const bucketRegion = core.getInput('bucket-region', { required: true });
+  const distFolder = core.getInput('dist-folder', { required: true });
+
+  core.notice(`Event name: ${github.context.eventName}`);
+
+  //exec.exec(`aws s3 sync ${distFolder} s3://${bucket} --region ${bucketRegion}`);
+  core.notice(`aws s3 sync ${distFolder} s3://${bucket} --region ${bucketRegion}`);
 }
 
 run();
